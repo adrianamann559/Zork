@@ -9,6 +9,7 @@ namespace Zork
         {
             Console.WriteLine("Welcome to Zork!");
 
+
             string inputString = Console.ReadLine().Trim().ToUpper();
             Commands command = ToCommand(inputString);
             if (command == Commands.QUIT)
@@ -43,47 +44,17 @@ namespace Zork
 
         static Commands ToCommand(string commandString)
         {
-            if (Enum.TryParse<Commands>(commandString, true, out Commands command))
+            if (Enum.TryParse<Commands>(commandString, true, out Commands result))
             {
-                return command;
+                return result;
             }
             else
             {
                 return Commands.UNKNOWN;
             }
+            
 
-            switch (commandString)
-            {
-                case "QUIT":
-                    command = Commands.QUIT;
-                    break;
-
-                case "LOOK":
-                    command = Commands.LOOK;
-                    break;
-
-                case "NORTH":
-                    command = Commands.NORTH;
-                    break;
-
-                case "SOUTH":
-                    command = Commands.SOUTH;
-                    break;
-
-                case "EAST":
-                    command = Commands.EAST;
-                    break;
-
-                case "WEST":
-                    command = Commands.WEST;
-                    break;
-
-                default:
-                    command = Commands.UNKNOWN;
-                    break;
-            }
-
-           
+            
         }
       
          
