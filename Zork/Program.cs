@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Zork
 {
@@ -12,8 +13,8 @@ namespace Zork
             bool isRunning = true;
             while (isRunning)
             {
-                Console.Write("> ");
-                string inputString = Console.ReadLine().Trim().ToUpper();
+                Console.Write($"{_rooms[_currentRoom]}\n > ");
+                string inputString = Console.ReadLine().Trim();
                 Commands command = ToCommand(inputString);
 
                 string outputString;
@@ -32,8 +33,16 @@ namespace Zork
                     case Commands.SOUTH:
                     case Commands.EAST:
                     case Commands.WEST:
-                        outputString = $"You moved {command}.";
+                        if (Move(command))
+                        {
+                            outputString = $"You moved {command}.";
+                        }
+                        else
+                        {
+                            outputString = "The way is shut!.";
                         break;
+                        }
+                      
 
                     default:
                         outputString = "Unrecognized Command. Try Again, Buddy.";
@@ -45,17 +54,42 @@ namespace Zork
 
         }
 
-        static Commands ToCommand(string commandString)
+        private static Commands ToCommand(string commandString)
         {
-            if (Enum.TryParse<Commands>(commandString, true, out Commands result))
+
+            return Enum.TryParse<Commands>(commandString, ignoreCase: true, out Commands command) ? command : Commands.UNKNOWN;
+        }
+
+        private static bool Move(Commands command)
+        {
+            bool didMove = false; 
+
+            switch (command)
             {
-                return result;
+                case Commands.NORTH:
+                case Commands.SOUTH:
+                didMove = false;
+                    break;
+
+                case Commands.EAST when _currentRoom < _rooms.Length - 1:
+                        _currentRoom++;
+                        didMove = true;
+                    break;
+
+                case Commands.WEST when _currentRoom > 0:
+                        _currentRoom--;
+                        didMove = true; 
+                    break;
+
+                default:
+                    didMove = false;
+                    break;
             }
-            else
-            {
-                return Commands.UNKNOWN;
-            }
-            
-        }   
+
+            return didMove;
+        }
+        private static readonly string[] _rooms = { "Forest", "West of House", "Behind House", "Clearing", "Canyon View" };
+        private static int _currentRoom = 1;
+
     }
 }
