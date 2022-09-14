@@ -39,10 +39,10 @@ namespace Zork
                         }
                         else
                         {
-                            outputString = "The way is shut!.";
-                        break;
+                            outputString = "The way is shut!";
+                       
                         }
-                      
+                       break;
 
                     default:
                         outputString = "Unrecognized Command. Try Again, Buddy.";
