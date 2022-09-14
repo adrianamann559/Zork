@@ -7,7 +7,7 @@ namespace Zork
     
     class Program
     {
-        private static string CurrentRoom
+        public static Room CurrentRoom
         {
             get
             {
@@ -87,12 +87,27 @@ namespace Zork
             Enum.TryParse(commandString, true, out Commands result) ? result : Commands.UNKNOWN;
         private static bool IsDirection(Commands command) => Directions.Contains(command);
 
-        private static readonly string[,] Rooms =
+        private static readonly Room[,] Rooms =
         {
-            {"Rocky Trail", "South of House", "Canyon View" },
-            {"Forest", "West of House", "Behind House"},
-            {"Dense Woods", "North of House", "Clearing" }
+            {new Room("Rocky Trail"), new Room("South of House"), new Room("Canyon View")},
+            {new Room("Forest"), new Room ("West of House"), new Room ("Behind House")},
+            {new Room("Dense Woods"), new Room("North of House"), new Room ("Clearing")}
         };
+
+        private static void IntializeRoomDescriptions()
+        {
+            Rooms[0, 0].Description = ""; //Rocky Trail
+            Rooms[0, 1].Description = ""; //South of House
+            Rooms[0, 2].Description = ""; //Canyon View
+
+            Rooms[1, 0].Description = ""; //Forest
+            Rooms[1, 1].Description = ""; //West of House
+            Rooms[1, 2].Description = ""; //Behind House
+
+            Rooms[2, 0].Description = ""; //Dense Woods
+            Rooms[2, 1].Description = ""; //North of House
+            Rooms[2, 2].Description = ""; //Clearing
+        }
 
         private static readonly List<Commands> Directions = new List<Commands>
         {
