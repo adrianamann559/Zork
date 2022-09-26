@@ -1,17 +1,25 @@
-{
-  "Name": "West of House",
-  "Descripton": "This is an open field west of a white house, with a boarded front door.",
-  //"Name": "South of House",
-  //"Descripton": "This is an open field west of a white house, with a boarded front door.",
+[
+  {
+    "Name": "West of House",
+    "Descripton": "This is an open field west of a white house, with a boarded front door."
+  },
+  "Name"
+  :
+  "Rocky Trail",
+  "Descripton"
+  :
+  "You are on a rock-strewn trail.",
   //"Name": "Nest of House",
   //"Descripton": "This is an open field west of a white house, with a boarded front door."
-  //"Name": "West of House",
+]
+
+  [//"Name": "West of House",
   //"Descripton": "This is an open field west of a white house, with a boarded front door.",
   //"Name": "West of House",
   //"Descripton": "This is an open field west of a white house, with a boarded front door.",
   //"Name": "West of House",
   //"Descripton": "This is an open field west of a white house, with a boarded front door.",
-  //"Name": "West of House",
+  //"Name": "West of House",]
   //"Descripton": "This is an open field west of a white house, with a boarded front door.",
   //"Name": "West of House",
   //"Descripton": "This is an open field west of a white house, with a boarded front door.",
@@ -19,4 +27,4 @@
   //"Descripton": "This is an open field west of a white house, with a boarded front door.",
   //"Name": "West of House",
   //"Descripton": "This is an open field west of a white house, with a boarded front door."
-}
+  }
