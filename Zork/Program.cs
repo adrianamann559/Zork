@@ -15,13 +15,12 @@ namespace Zork
                 return Rooms[Location.Row, Location.Column];
             }
         }
-        private static Dictionary<string, Room> RoomMap;
+        private static readonly Dictionary<string, Room> RoomMap;
 
         
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Zork!");
-            //string roomsFilename = args.Length > 0 ? args[(int)CommandLineArguments.RoomsFileName] : @Content/Rooms.json;
             Room previousRoom = null;
             Commands command = Commands.UNKNOWN;
             while (command != Commands.QUIT)
@@ -78,11 +77,11 @@ namespace Zork
                     break;
 
                 case Commands.EAST when Location.Column < Rooms.GetLength(1) - 1:
-                    Location.Row++;
+                    Location.Column++;
                     break;
 
                 case Commands.WEST when Location.Column > 0:
-                    Location.Row++;
+                    Location.Column--;
                     break;
 
                 default:
@@ -129,14 +128,5 @@ namespace Zork
         };
 
         private static (int Row, int Column) Location = (1, 1);
-
-        //private enum Fields
-        //{
-           //Name = 0
-           //Descriptions = 1
-        //}
-
-       
-
     }
 }
