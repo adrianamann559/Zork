@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -25,6 +24,11 @@ namespace Zork
             Commands command = Commands.UNKNOWN;
             while (command != Commands.QUIT)
             {
+                if (previousRoom != CurrentRoom)
+                {
+                    Console.WriteLine(CurrentRoom.Description);
+                    previousRoom = CurrentRoom;
+                }
                 Console.WriteLine(CurrentRoom);
                 Console.Write("> ");
                 command = ToCommand(Console.ReadLine().Trim());
@@ -32,7 +36,7 @@ namespace Zork
                 switch(command)
                 {
                     case Commands.LOOK:
-                        Console.WriteLine("This is an open field west of a white house, with a boarded up front door. \nA rubber mat saying 'Welcome to Zork!' lies by the door.");
+                        Console.WriteLine(CurrentRoom.Description);
                         break;
 
                     case Commands.QUIT:
@@ -54,11 +58,7 @@ namespace Zork
                         break;
                 }
             }
-            if (previousRoom != CurrentRoom)
-            {
-                Console.WriteLine(CurrentRoom.Description);
-                previousRoom = CurrentRoom;
-            }
+            
 
         }
         private static bool Move(Commands command)
@@ -105,18 +105,23 @@ namespace Zork
         };
         private static void IntializeRoomDescriptions(string roomsFilename)
         {
-            var roomMap = new Dictionary<string, Room>();
-            foreach (Room room in Rooms)
-            {
-                roomMap.Add[room.Name, room] = room;
-            }
+            const string fieldDelimiter = "##";
+            const int expectedFieldCount =  2;
 
-            Room[] rooms = JsonConvert.DeserializeObject<Room[]>(File.ReadAllText(roomsFilename));
-            foreach(Room room in rooms)
+            string[] lines = FileReadAllLines(roomsFilename);
+            foreach (string line in lines)
             {
-                roomMap[room.Name].Description = room.Description;
+                string[] fields = line.Split(fieldDelimiter);
+                if (fields.Length != expectedFieldCount)
+                {
+                    throw new InvalidDataException("Invalid record.");
+                }
+
+                string name = fields[(int)Fields.Name];
+                string descripiton = fields[(int)Fields.Description];
+
+                RoomMap[name].Description = descripiton;
             }
-            
         }
 
         private static readonly List<Commands> Directions = new List<Commands>
@@ -128,5 +133,10 @@ namespace Zork
         };
 
         private static (int Row, int Column) Location = (1, 1);
+    }
+    private enum Fields
+    {
+        Name = 0,
+        Description = 1,
     }
 }
