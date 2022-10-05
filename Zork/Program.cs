@@ -103,12 +103,12 @@ namespace Zork
             {new Room("Forest"), new Room ("West of House"), new Room ("Behind House")},
             {new Room("Dense Woods"), new Room("North of House"), new Room ("Clearing")}
         };
-        private static void IntializeRoomDescriptions(string roomsFilename)
+        private static void IntializeRoomDescriptions(string RoomsFilename)
         {
             const string fieldDelimiter = "##";
             const int expectedFieldCount =  2;
 
-            string[] lines = FileReadAllLines(roomsFilename);
+            string[] lines = FileReadAllLines(RoomsFilename);
             foreach (string line in lines)
             {
                 string[] fields = line.Split(fieldDelimiter);
@@ -134,7 +134,7 @@ namespace Zork
 
         private static (int Row, int Column) Location = (1, 1);
     }
-    private enum Fields
+    public enum Fields
     {
         Name = 0,
         Description = 1,
