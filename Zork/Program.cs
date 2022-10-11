@@ -16,7 +16,7 @@ namespace Zork
                 return Rooms[Location.Row, Location.Column];
             }
         }
-        
+        private static readonly Dictionary<string, Room> RoomMap;
 
         
         static void Main(string[] args)
