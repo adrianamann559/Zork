@@ -103,12 +103,12 @@ namespace Zork
             {new Room("Forest"), new Room ("West of House"), new Room ("Behind House")},
             {new Room("Dense Woods"), new Room("North of House"), new Room ("Clearing")}
         };
-        private static void IntializeRoomDescriptions(string RoomsFilename)
+        private static void IntializeRoomDescriptions(string roomsFilename)
         {
             const string fieldDelimiter = "##";
             const int expectedFieldCount =  2;
 
-            string[] lines = FileReadAllLines(RoomsFilename);
+            string[] lines = File.ReadAllLines(roomsFilename);
             foreach (string line in lines)
             {
                 string[] fields = line.Split(fieldDelimiter);
