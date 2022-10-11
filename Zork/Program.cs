@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -106,22 +107,10 @@ namespace Zork
         };
         private static void IntializeRoomDescriptions(string roomsFilename)
         {
-            const string fieldDelimiter = "##";
-            const int expectedFieldCount =  2;
-
-            string[] lines = File.ReadAllLines(roomsFilename);
-            foreach (string line in lines)
+           var Rooms = JsonConvert.DeserializeObject<Room[]>(File.ReadAllText(roomsFilename));
+           foreach (Room room in Rooms)
             {
-                string[] fields = line.Split(fieldDelimiter);
-                if (fields.Length != expectedFieldCount)
-                {
-                    throw new InvalidDataException("Invalid record.");
-                }
-
-                string name = fields[(int)Fields.Name];
-                string descripiton = fields[(int)Fields.Description];
-
-                RoomMap[name].Description = descripiton;
+                RoomMap[room.Name].Description = room.Description;
             }
         }
 
