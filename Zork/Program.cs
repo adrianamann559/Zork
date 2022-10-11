@@ -16,7 +16,7 @@ namespace Zork
                 return Rooms[Location.Row, Location.Column];
             }
         }
-        private static readonly Dictionary<string, Room> RoomMap;
+        
 
         
         static void Main(string[] args)
@@ -99,20 +99,15 @@ namespace Zork
             Enum.TryParse(commandString, true, out Commands result) ? result : Commands.UNKNOWN;
         private static bool IsDirection(Commands command) => Directions.Contains(command);
 
-        private static readonly Room[,] Rooms =
+        private static Room[,] Rooms =
         {
             {new Room("Rocky Trail"), new Room("South of House"), new Room("Canyon View")},
             {new Room("Forest"), new Room ("West of House"), new Room ("Behind House")},
             {new Room("Dense Woods"), new Room("North of House"), new Room ("Clearing")}
         };
-        private static void IntializeRoomDescriptions(string roomsFilename)
-        {
-           var Rooms = JsonConvert.DeserializeObject<Room[]>(File.ReadAllText(roomsFilename));
-           foreach (Room room in Rooms)
-            {
-                RoomMap[room.Name].Description = room.Description;
-            }
-        }
+        private static void IntializeRooms(string roomsFilename) =>
+          Rooms = JsonConvert.DeserializeObject<Room[,]>(File.ReadAllText(roomsFilename));  
+        
 
         private static readonly List<Commands> Directions = new List<Commands>
         {
